@@ -1,0 +1,53 @@
+[package]
+name = "actix-api-security-framework"
+version = "0.1.0"
+authors = ["Themba Ngxola <tnxola@gmail.com>"]
+edition = "2021"
+
+[[bin]]
+name = "actix-authentication-authorization"
+path = "api-gateway/src/main.rs"
+
+[dependencies]
+hyper = { version = "0.14", features = ["server"] }
+
+tokio = "1.37.0"
+serde = "1.0.203"
+serde_json = "1.0.80"
+futures = "0.3.11"
+mongodb = "2.8.2"
+thiserror = "1.0.61"
+config = "0.14.0"
+actix-service = "2.0.2"
+env_logger = "0.11.3"
+log = "0.4.21"
+
+[dependencies.jsonwebtoken]
+version = "9.3.0"
+default = false
+
+[dependencies.actix-web]
+version = "4.0.3"
+default = false
+
+[dependencies.dotenv]
+version = "0.15.0"
+default = false
+
+
+[profile.dev]
+opt-level = 0
+debug = true
+
+[profile.release]
+
+server_address = "127.0.0.1:8080"
+api_version = "v1"
+auth_secret = "super_secret"
+
+[[authorization_rules]]
+path = "/users"
+methods = ["GET", "POST"]
+roles = ["admin", "user"]
+
+
